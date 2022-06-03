@@ -1,10 +1,10 @@
-<p align="center">
+<p align="center" style="background-color: #edf2f7">
     <a href="https://laravel.com" target="_blank">
         <img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400">
     </a>
 </p>
 
-<p align="center">
+<p align="center" style="background-color: #edf2f7; padding: 15px 0px">
     <a href="https://www.elastic.co/elasticsearch/" target="_blank">
         <img src="https://images.contentstack.io/v3/assets/bltefdd0b53724fa2ce/blt280217a63b82a734/6202d3378b1f312528798412/elastic-logo.svg" width="300">
     </a>
