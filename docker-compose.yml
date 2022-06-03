@@ -1,0 +1,48 @@
+version: '3.5'
+
+services:
+  app:
+    image: saderi/php-nginx:latest
+    restart: always
+    ports:
+      - 8080:80
+    volumes:
+      - ${PWD}:/var/www/html:delegated
+    environment:
+      TZ: Europe/Istanbul
+
+  mysql:
+    image: mysql:5.7
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password1234
+      MYSQL_DATABASE: logger
+      MYSQL_USER: fthird
+      MYSQL_PASSWORD: password123
+      TZ: Europe/Istanbul
+    command: --default-authentication-plugin=mysql_native_password
+
+  redis:
+    image: bitnami/redis:latest
+    restart: always
+    ports:
+      - 6379:6379
+    environment:
+      - REDIS_PASSWORD=password123
+
+  elasticsearch:
+    image: elasticsearch:8.2.2
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      - discovery.type=single-node
+
+volumes:
+  mysql:
+  redis:
+  elasticsearch:

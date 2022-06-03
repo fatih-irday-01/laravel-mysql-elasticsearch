@@ -1,0 +1,9 @@
+default:
+	${MAKE} up
+
+up:
+	docker-compose -p elasticsearch_test -f docker-compose.yml up -d
+
+down:
+	docker-compose -p elasticsearch_test -f docker-compose.yml down --remove-orphans
+
