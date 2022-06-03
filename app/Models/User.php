@@ -2,15 +2,28 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use ElasticScoutDriverPlus\Support\Query;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Collection;
+use ElasticScoutDriverPlus\Searchable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, Searchable;
+
+    /**
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        return [
+            'name' => $this->name,
+            'email' => $this->email,
+        ];
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -41,4 +54,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * @param $name
+     * @return Collection
+     */
+    public function nameSearch($name)
+    {
+        $query = Query::match()->field('name')->query($name)->fuzziness('AUTO');
+
+        return User::searchQuery($query)->execute()->models();
+    }
 }
